@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GoldEggManager : MonoBehaviour
 {
-    public Vector2 initialVelocity;
     private Rigidbody2D rb2D;
 
     private void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        rb2D.velocity = initialVelocity;
+        rb2D.velocity = new Vector2(Random.Range(1f,10f), 10f);
     }
     private void Update()
     {

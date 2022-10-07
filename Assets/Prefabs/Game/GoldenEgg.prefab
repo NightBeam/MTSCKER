@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb5d6e0ed037bb4ea3696e37dd3795c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: {x: 0, y: 10}
+  initialVelocity: {x: 2, y: 10}
 --- !u!96 &6229980771716417596
 TrailRenderer:
   serializedVersion: 2
