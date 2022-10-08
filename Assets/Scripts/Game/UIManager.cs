@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public enum ShoisenText
+    public enum ChoisenText : int //перечесление чтобы не забыть индексы у текстовых объектов
     {
         pointsField = 0,
         scoreField,
@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject StartGameOBJ;
     public GameObject EndGameOBJ;
 
-    public void ShowAndHide(GameObject objToDo, bool showOrHide)
+    public void ShowAndHide(GameObject objToDo, bool showOrHide) //скрывает или показывает Объекты
     {
         if (showOrHide)
         {
@@ -30,4 +30,20 @@ public class UIManager : MonoBehaviour
             objToDo.SetActive(false);
         }
     }
+    private void Update()
+    {
+        if(StartGameManager.gameIsStarted)
+            WriteDatasIntoTextFieldFrom(ChoisenText.scoreField, $"{EggRocketManager.points}/{EnemyEggRocket.points}");
+        else
+            WriteDatasIntoTextFieldFrom(ChoisenText.scoreField, "");
+    }
+    public void WriteDatasIntoTextFieldFrom(ChoisenText where, string someText)//Метод для записи данных ввиде текста в Текстовые поля 
+    {
+        textField[(int)where].text = someText;
+    }
+    //public void WriteDatasIntoTextFieldFrom(ChoisenText where, WriteDatas writeDatas) //Метод для записи данных их Настроек игрока (PlayerPrefs) (Перегрузка)
+    //{
+    //    textField[(int)where].text = Convert.ToString(writeDatas.Invoke());
+    //}
+    //public delegate int WriteDatas();
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PointsManager : MonoBehaviour
 {
-    public static void SetPoint()
+    public static void SetPoint(int value)
     {
-        PlayerPrefs.SetInt("AppPoints", +1);
+        PlayerPrefs.SetInt("AppPoints", value);
     }
     public static int GetPoint()
     {
