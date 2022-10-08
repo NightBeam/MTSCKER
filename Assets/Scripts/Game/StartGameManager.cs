@@ -1,17 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartGameManager : MonoBehaviour
 {
-    public static bool isStarted;
-
+    UIManager uIManager;
+    public GameObject GoldenEgg;
+    public static bool gameIsStarted;
     private void Start()
     {
-        isStarted = false;
+        gameIsStarted = false;
+        uIManager.ShowAndHide(uIManager.EndGameOBJ, false);
+        uIManager.ShowAndHide(uIManager.StartGameOBJ, true);
+        uIManager = GetComponent<UIManager>(); 
     }
     public void StartGame()
     {
-        isStarted = true;
+        uIManager.ShowAndHide(uIManager.StartGameOBJ, false);
+        gameIsStarted = true;
+        
     }
+
+
+
 }
