@@ -94,11 +94,11 @@ public class ScoreManager : MonoBehaviour
         {
             points++;
             PointsManager.SetPoint(points);
-            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are winner!");
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "Ты выйграл!");
         }
         else
         {
-            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are looser!");
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "Ты проиграл!");
         }
         uIManager.ShowAndHide(startGameManager.uIManager.EndGameOBJ, true);
     }
