@@ -29,6 +29,7 @@ public class StartGameManager : MonoBehaviour
         Player.SetActive(false);
         uIManager.ShowAndHide(uIManager.EndGameOBJ, false); //отключил конечное меню
         uIManager.ShowAndHide(uIManager.StartGameOBJ, true); //влючил начальное меню
+        uIManager.ShowAndHide(uIManager.ExitGameOBJ, false);//отключить меню выхода
         scoreManager.points = PointsManager.GetPoint();
         uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.pointsField, Convert.ToString(scoreManager.points));
         if(gameRestart == 0)

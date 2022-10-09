@@ -18,17 +18,11 @@ public class UIManager : MonoBehaviour
 
     public GameObject StartGameOBJ;
     public GameObject EndGameOBJ;
+    public GameObject ExitGameOBJ;
 
     public void ShowAndHide(GameObject objToDo, bool showOrHide) //скрывает или показывает Объекты
     {
-        if (showOrHide)
-        {
-            objToDo.SetActive(true);
-        }
-        else
-        {
-            objToDo.SetActive(false);
-        }
+        objToDo.SetActive(showOrHide);
     }
     private void Update()
     {
