@@ -10,10 +10,17 @@ public class ScoreManager : MonoBehaviour
     public int points;
     public GameObject GoldenEggTracker;
     [SerializeField] StartGameManager startGameManager;
+    [SerializeField] UIManager uIManager;
     public GameObject[] players;
+    public GameObject ExitGameButton;
+
+    public GameObject goalParticle;
+    [SerializeField]AudioSource audioSource;
     private void Awake()
     {
         startGameManager = GetComponent<StartGameManager>(); 
+        uIManager = GetComponent<UIManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -36,17 +43,19 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScore(bool winnerOrLooser)
     {
+        audioSource.Play();
         int i = 0;
-        Debug.Log("Hi");
         if (winnerOrLooser)
         {
             EggRocketManager.points++;
             i = 0;
+            Instantiate(goalParticle, GoldenEggTracker.transform.position, Quaternion.Euler(90f, 0f, 0f));
         }
         else
         {
             EnemyEggRocket.points++;
             i = 1;
+            Instantiate(goalParticle, GoldenEggTracker.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         }
 
         if (EggRocketManager.points >= 5)
@@ -63,32 +72,34 @@ public class ScoreManager : MonoBehaviour
         EnemyEggRocket.GoldenEgg = null;
         if (StartGameManager.gameIsStarted)
         {
+            Transform pos = players[i].transform.Find("pointOfball").transform;
             if (i == 0)
             {
-                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, players[i].transform.Find("pointOfball").transform.position, new Vector2(0f, 10f));
+                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, pos.position, new Vector2(0f, 10f), pos);
             }
             else if(i == 1)
             {
-                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, players[i].transform.Find("pointOfball").transform.position, new Vector2(0f, -10f));
+                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, pos.position, new Vector2(0f, -10f), pos);
             }
         }
     }
     public void EndGame(bool who)
     {
+
         StartGameManager.gameIsStarted = false;
         players[0].SetActive(false);
         players[1].SetActive(false);
-      
+        ExitGameButton.SetActive(false);
         if (who)
         {
             points++;
             PointsManager.SetPoint(points);
-            startGameManager.uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are winner!");
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are winner!");
         }
         else
         {
-            startGameManager.uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are looser!");
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "You are looser!");
         }
-        startGameManager.uIManager.ShowAndHide(startGameManager.uIManager.EndGameOBJ, true);
+        uIManager.ShowAndHide(startGameManager.uIManager.EndGameOBJ, true);
     }
 }
