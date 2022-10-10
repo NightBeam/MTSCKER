@@ -11,6 +11,8 @@ public class chek : MonoBehaviour
     public bool ch;
     public float time;
     public int a;
+
+    public User user;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class chek : MonoBehaviour
     public void gal(){
         ivent.SetActive(false);
         chat.SetActive(true);
+        user.searchChat = true;
     }
     public void no(){
         ivent.SetActive(false);

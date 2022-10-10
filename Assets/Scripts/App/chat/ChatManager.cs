@@ -17,9 +17,10 @@ public class ChatManager : MonoBehaviour
 
 
     public bool firstMessage;
-
+    public bool sendMessage;
     private void Start()
     {
+        sendMessage = false;
         firstMessage = false;
     }
     private void Update()
@@ -30,6 +31,11 @@ public class ChatManager : MonoBehaviour
             {
                 MakeBotMessage("Стартапер:\n Привет, не хочешь перед началом работы сыграть в игру?)");
                 firstMessage = true;
+            }
+            if (sendMessage)
+            {
+                MakeInvite();
+                sendMessage = false;
             }
         }
     }
@@ -44,6 +50,7 @@ public class ChatManager : MonoBehaviour
         {
             CreateMessage("Ты: \n" + Convert.ToString(inputField.text), Messages[1]);
             inputField.text = "";
+            sendMessage = true;
         }
     }
     public void MakeInvite()

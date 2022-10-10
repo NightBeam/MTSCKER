@@ -11,8 +11,10 @@ public class StartGameManager : MonoBehaviour
     public static bool gameIsStarted;
 
     public GameObject Player;
+    PointsManager pointsManager;
     private void Awake()
     {
+        pointsManager = GetComponent<PointsManager>();
         gameIsStarted = false;   //показывает что игра не запущена
         uIManager = GetComponent<UIManager>(); 
         scoreManager = GetComponent<ScoreManager>();
@@ -25,7 +27,7 @@ public class StartGameManager : MonoBehaviour
         uIManager.ShowAndHide(uIManager.EndGameOBJ, false); //отключил конечное меню
         uIManager.ShowAndHide(uIManager.StartGameOBJ, true); //влючил начальное меню
         uIManager.ShowAndHide(uIManager.ExitGameOBJ, false);//отключить меню выхода
-        scoreManager.points = PointsManager.GetPoint();
+        scoreManager.points = pointsManager.GetPoint();
         uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.pointsField, Convert.ToString(scoreManager.points));
         if(gameRestart == 0)
         {

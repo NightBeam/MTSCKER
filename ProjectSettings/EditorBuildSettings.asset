@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/App.unity
+    guid: 5431b8e3e1acab64bb6e8bd50e822141
+  - enabled: 1
     path: Assets/Scenes/EggSmash.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
-    path: Assets/Scenes/chat.unity
-    guid: 0995a06eab9946c45a2523b4bc6e8c78
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
