@@ -1,61 +1,105 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
+
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreText;
-    public GameObject eggBall;
-    public GameObject eggBallTrecker;
-    public bool isBallCreated;
-    
-    public bool isa;
-    private void Start()
+    public int points;
+    public GameObject GoldenEggTracker;
+    [SerializeField] StartGameManager startGameManager;
+    [SerializeField] UIManager uIManager;
+    public GameObject[] players;
+    public GameObject ExitGameButton;
+
+    public GameObject goalParticle;
+    [SerializeField]AudioSource audioSource;
+    private void Awake()
     {
-        isBallCreated = false;
+        startGameManager = GetComponent<StartGameManager>(); 
+        uIManager = GetComponent<UIManager>();
+        audioSource = GetComponent<AudioSource>();
     }
+
     private void Update()
     {
-        StartGameManager.isStarted = isa;
-        scoreText.text = $"{EggRocketManager.points}/{EnemyEggRocket.points}";
-        if(StartGameManager.isStarted == true)
+        if (StartGameManager.gameIsStarted)
         {
-            if(isBallCreated == false)
+            if (GoldenEggTracker != null)
             {
-                CreateEggBall();
-                isBallCreated = true;
-            }
-            if (eggBallTrecker != null)
-            {
-                if(eggBallTrecker.transform.position.y >= 6f)
+                if (GoldenEggTracker.transform.position.y >= 5.3f)
                 {
-                    TakePoint(true);
+                    UpdateScore(true);
                 }
-                else if(eggBallTrecker.transform.position.y <= -6f)
+                else if (GoldenEggTracker.transform.position.y <= -5.3f)
                 {
-                    TakePoint(false); 
+                    UpdateScore(false);
                 }
             }
         }
+    }
 
-    }
-    void CreateEggBall()
+    public void UpdateScore(bool winnerOrLooser)
     {
-        eggBallTrecker = Instantiate(eggBall, new Vector3(0f,0f,0f), Quaternion.identity);
-        EnemyEggRocket.GoldenEgg = eggBallTrecker;
-    }
-    void TakePoint(bool whom)
-    {
-        if (whom)
+        audioSource.Play();
+        int i = 0;
+        if (winnerOrLooser)
         {
             EggRocketManager.points++;
-        }   
+            i = 0;
+            Instantiate(goalParticle, GoldenEggTracker.transform.position, Quaternion.Euler(90f, 0f, 0f));
+        }
         else
         {
             EnemyEggRocket.points++;
+            i = 1;
+            Instantiate(goalParticle, GoldenEggTracker.transform.position, Quaternion.Euler(-90f, 0f, 0f));
         }
-        Destroy(eggBallTrecker);
-        eggBallTrecker = null;
-        CreateEggBall();
+
+        if (EggRocketManager.points >= 5)
+        {
+            EndGame(true);
+        }
+        else if (EnemyEggRocket.points >= 5)
+        {
+            EndGame(false);
+        }
+
+        Destroy(GoldenEggTracker);
+        GoldenEggTracker = null;
+        EnemyEggRocket.GoldenEgg = null;
+        if (StartGameManager.gameIsStarted)
+        {
+            Transform pos = players[i].transform.Find("pointOfball").transform;
+            if (i == 0)
+            {
+                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, pos.position, new Vector2(0f, 10f), pos);
+            }
+            else if(i == 1)
+            {
+                startGameManager.SpawnGoldenEgg(startGameManager.GoldenEgg, pos.position, new Vector2(0f, -10f), pos);
+            }
+        }
+    }
+    public void EndGame(bool who)
+    {
+
+        StartGameManager.gameIsStarted = false;
+        players[0].SetActive(false);
+        players[1].SetActive(false);
+        ExitGameButton.SetActive(false);
+        if (who)
+        {
+            points++;
+            PointsManager.SetPoint(points);
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "Ты выйграл!");
+        }
+        else
+        {
+            uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "Ты проиграл!");
+        }
+        uIManager.ShowAndHide(startGameManager.uIManager.EndGameOBJ, true);
     }
 }

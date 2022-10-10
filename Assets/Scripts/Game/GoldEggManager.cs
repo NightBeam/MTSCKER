@@ -5,20 +5,45 @@ using UnityEngine;
 public class GoldEggManager : MonoBehaviour
 {
     private Rigidbody2D rb2D;
+    public bool isWent;
+    public Vector2 initialDirection;
+    public Transform startPos;
+
+    public AudioSource audioSource;
 
     private void Start()
     {
+        isWent = false;
         rb2D = GetComponent<Rigidbody2D>();
-        rb2D.velocity = new Vector2(Random.Range(1f,10f), 10f);
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
-        Vector2 dir = rb2D.velocity;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (!isWent)
+        {
+            if(startPos != null)
+            {
+                transform.position = startPos.position;
+            }
+            else
+            {
+                transform.position = transform.position;
+            }
+
+            if(Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    rb2D.velocity = initialDirection;
+                    isWent = true;
+                }
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         rb2D.velocity = Vector2.Reflect(rb2D.velocity, collision.contacts[0].normal);
+        audioSource.Play();
     }
 }
