@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PointsManager : MonoBehaviour
 {
-    public User user;
-    public  void SetPoint(int value)
+    public static void SetPoint(int value)
     {
-        user.points += value;
+        PlayerPrefs.SetInt("AppPoints", value);
     }
-    public  int GetPoint()
+    public static int GetPoint()
     {
-        int points = user.points;
+        int points = PlayerPrefs.GetInt("AppPoints");
         return points;
     }
 }
