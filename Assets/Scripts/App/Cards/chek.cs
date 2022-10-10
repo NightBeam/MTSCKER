@@ -17,7 +17,7 @@ public class chek : MonoBehaviour
     void Start()
     {
         inst = FindObjectOfType<Instantiateon>();
-        time = Random.Range( 4f, 10f);
+        time = Random.Range( 4f, 7f);
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class chek : MonoBehaviour
             if(time <= 0){
                 ch = false;
                 inst.num = 1;
-                time = Random.Range( 4f, 10f); 
+                time = Random.Range( 4f, 7f); 
                 a = 0;
                 cards.SetActive(false);
                 ivent.SetActive(true);
