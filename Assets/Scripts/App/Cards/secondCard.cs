@@ -14,7 +14,7 @@ public class secondCard : MonoBehaviour
         che = FindObjectOfType<chek>();
         _firstCard = swipeEffect.gameObject;
         swipeEffect.cardMoved += CardMovedFront;
-        transform.localScale = new Vector3(8.8f, 13.3f, 8.8f);
+        transform.localScale = new Vector3(14.8f, 24.3f, 14.8f);
 
     }
 
@@ -24,8 +24,8 @@ public class secondCard : MonoBehaviour
         float distanceMoved = _firstCard.transform.localPosition.x;
         if (Mathf.Abs(distanceMoved) > 0)
         {
-            float step = Mathf.SmoothStep(8.8f,9,Mathf.Abs(distanceMoved)/(Screen.width / 2));
-            float step1 = Mathf.SmoothStep(13.3f,13.5f,Mathf.Abs(distanceMoved)/(Screen.width / 2));
+            float step = Mathf.SmoothStep(14.8f,15,Mathf.Abs(distanceMoved)/(Screen.width / 2));
+            float step1 = Mathf.SmoothStep(24.8f,25f,Mathf.Abs(distanceMoved)/(Screen.width / 2));
             transform.localScale = new Vector3(step, step1, step);
         }
     }

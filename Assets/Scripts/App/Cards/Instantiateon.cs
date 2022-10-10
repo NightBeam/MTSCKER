@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Instantiateon : MonoBehaviour
 {
-    public GameObject cardPrefab;
+    public GameObject[] cardPrefab;
     private secondCard second;
     private SwipeEffect swip;
     private chek che;
@@ -12,7 +12,7 @@ public class Instantiateon : MonoBehaviour
     // Start is called before the first frame update
     void InstantiateCard()
     {
-        GameObject newCard = Instantiate(cardPrefab, transform, false);
+        GameObject newCard = Instantiate(cardPrefab[Random.Range(0,5)], transform, false);
         newCard.transform.SetAsFirstSibling();
     }
 
