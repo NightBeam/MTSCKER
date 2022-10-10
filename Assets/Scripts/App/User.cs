@@ -11,4 +11,5 @@ public class User : ScriptableObject
     public int post;
     public int points;
     public bool authorized;
+    public bool searchChat;
 }

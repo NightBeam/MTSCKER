@@ -10,6 +10,8 @@ public class CardsSwaper : MonoBehaviour
 
     public ToolBarButtonManager toolBarButtonManager;
 
+
+    public User user;
     private void Start()
     {
         CreateCard();
@@ -21,8 +23,12 @@ public class CardsSwaper : MonoBehaviour
         {
             if (what)
             {
-                MakeChoise("YesCard");
-
+                if (!user.searchChat)
+                {
+                    MakeChoise("YesCard");
+                    Invoke("StartMessage", 1f);
+                    user.searchChat = true;
+                }
             }
             else
             {
@@ -35,7 +41,6 @@ public class CardsSwaper : MonoBehaviour
         card.GetComponent<Animation>().Play(nameOfAnimation);
         card.GetComponent<CardManager>().destroy = true;
         CreateCard();
-        Invoke("StartMessage", 0.5f);
     }
 
     public void CreateCard()

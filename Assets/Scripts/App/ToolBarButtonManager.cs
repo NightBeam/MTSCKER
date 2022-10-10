@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToolBarButtonManager : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class ToolBarButtonManager : MonoBehaviour
         windows[1].SetActive(false);
         windows[2].SetActive(true);
     }
-
+    public void StartGame()
+    {
+        SceneManager.LoadScene("EggSmash");
+    }
 }
 
