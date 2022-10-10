@@ -27,7 +27,7 @@ public class chek : MonoBehaviour
             time -= Time.deltaTime;
             if(time <= 0){
                 ch = false;
-                inst.num = 1;
+                a = 0;
                 time = Random.Range( 4f, 7f); 
                 cards.SetActive(false);
                 ivent.SetActive(true);
