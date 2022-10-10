@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     public GameObject goalParticle;
     [SerializeField]AudioSource audioSource;
+    public PointsManager pointsManager;
     private void Awake()
     {
         startGameManager = GetComponent<StartGameManager>(); 
@@ -89,7 +90,7 @@ public class ScoreManager : MonoBehaviour
         if (who)
         {
             points++;
-            PointsManager.SetPoint(points);
+            pointsManager.SetPoint(points);
             uIManager.WriteDatasIntoTextFieldFrom(UIManager.ChoisenText.endGameField, "Òû גûידנאכ!");
         }
         else
