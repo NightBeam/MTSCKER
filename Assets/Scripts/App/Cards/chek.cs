@@ -29,7 +29,6 @@ public class chek : MonoBehaviour
                 ch = false;
                 inst.num = 1;
                 time = Random.Range( 4f, 7f); 
-                a = 0;
                 cards.SetActive(false);
                 ivent.SetActive(true);
             }
