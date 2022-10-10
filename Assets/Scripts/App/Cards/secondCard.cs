@@ -6,10 +6,12 @@ public class secondCard : MonoBehaviour
 {
     private SwipeEffect swipeEffect;
     private GameObject _firstCard;
+    private chek che;
     // Start is called before the first frame update
     void Start()
     {
         swipeEffect = FindObjectOfType<SwipeEffect>();
+        che = FindObjectOfType<chek>();
         _firstCard = swipeEffect.gameObject;
         swipeEffect.cardMoved += CardMovedFront;
         transform.localScale = new Vector3(8.8f, 13.3f, 8.8f);

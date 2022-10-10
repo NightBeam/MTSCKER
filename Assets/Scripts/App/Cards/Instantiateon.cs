@@ -5,6 +5,10 @@ using UnityEngine;
 public class Instantiateon : MonoBehaviour
 {
     public GameObject cardPrefab;
+    private secondCard second;
+    private SwipeEffect swip;
+    private chek che;
+    public int num = 1;
     // Start is called before the first frame update
     void InstantiateCard()
     {
@@ -15,8 +19,13 @@ public class Instantiateon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        che = FindObjectOfType<chek>();
         if(transform.childCount < 2)
         {
+            if(num==0){
+                che.a=1;
+            }       
+            num-=1;    
             InstantiateCard();
         }   
     }

@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
+    private chek chek;
     private Vector3 _initialPosition;
     private float _distanceMoved;
     private bool _swipeLeft;
-
     public event Action cardMoved;
     public void OnDrag(PointerEventData eventData)
     {
@@ -60,12 +60,14 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         float time = 0;
         if (_swipeLeft)
         {
+            
             while (GetComponent<Image>().color != new Color(255, 0, 0, 0))
             {
                 time += Time.deltaTime;
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
                     transform.localPosition.x - Screen.width, time), transform.localPosition.y, 0);
                 GetComponent<Image>().color = new Color(255, 0, 0, Mathf.SmoothStep(1, 0, 4 * time));
+                
                 yield return null;
             }
         }
@@ -73,10 +75,14 @@ public class SwipeEffect : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDrag
         {
             while (GetComponent<Image>().color != new Color(0, 166, 0, 0))
             {
+                chek = FindObjectOfType<chek>();
                 time += Time.deltaTime;
                 transform.localPosition = new Vector3(Mathf.SmoothStep(transform.localPosition.x,
                         transform.localPosition.x + Screen.width, time), transform.localPosition.y, 0);
                 GetComponent<Image>().color = new Color(0, 166, 0, Mathf.SmoothStep(1, 0, 4 * time));
+                if(chek.a==1){
+                    chek.ch=true;
+                }
                 yield return null;
             }
         }
